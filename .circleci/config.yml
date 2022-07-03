@@ -1,0 +1,29 @@
+# Fichier de configuration Python pour CircleCI 2.0
+---
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.10
+
+    working_directory: ~/repo
+
+    steps:
+      # Etape 1: Obtenir le référentiel de GitHub
+      - checkout
+
+      # Etape 2: Créer un environnement virtuel et installer des dépendances
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+
+      # Etape 3: Exécuter linter et tests
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            flake8 --exclude=venv* --statistics
+            pytest -v --cov=calculator
