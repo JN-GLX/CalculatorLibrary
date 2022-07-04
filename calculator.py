@@ -3,9 +3,6 @@ Module Calculatrice simple pour test de Circle CI
 """
 
 
-from importlib.util import find_spec
-
-
 def add(first_term, second_term):
     return first_term + second_term
 
